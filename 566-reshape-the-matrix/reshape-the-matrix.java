@@ -11,6 +11,10 @@ class Solution {
             return mat;
         }
 
+        if (numberOfRows == r && numberOfCols == c) {
+            return mat;
+        }
+
         final var newMatrix = new int[r][c];
 
         for (int rowIndex = 0; rowIndex < numberOfRows; rowIndex++) {

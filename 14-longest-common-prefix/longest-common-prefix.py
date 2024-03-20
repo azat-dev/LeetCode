@@ -1,14 +1,4 @@
 class Solution:
-    def longestCommonChars(self, str1, str2):
-        n = min(len(str1), len(str2))
-        count = 0
-
-        for i in range(n):
-            if str1[i] != str2[i]:
-                return count
-            count += 1
-        return count
-
     def longestCommonPrefix(self, strs: List[str]) -> str:
 
         number_of_strings = len(strs)

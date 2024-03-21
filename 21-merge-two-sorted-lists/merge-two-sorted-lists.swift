@@ -35,6 +35,7 @@ class Solution {
         return resultIndex
     }
 
+    // Iterative solution
     func mergeTwoLists(_ list1: ListNode?, _ list2: ListNode?) -> ListNode? {
         
         // 1. Create a variable which will store root node of resulting list
@@ -85,5 +86,39 @@ class Solution {
         }
 
         return rootNode
+    }
+
+    // Recursive solution
+    func mergeTwoListsRecursive(_ list1: ListNode?, _ list2: ListNode?) -> ListNode? {
+        
+        guard 
+            let list1 = list1,
+            let list2 = list2
+        else {
+            return list1 ?? list2
+        }
+
+        if list1.val <= list2.val {
+
+            let mergedList = mergeTwoLists(
+                list1.next, 
+                list2
+            )
+
+            return .init(
+                list1.val,
+                mergedList
+            )
+        }
+
+        let mergedList = mergeTwoLists(
+            list1, 
+            list2.next
+        )
+
+        return .init(
+            list2.val,
+            mergedList
+        )
     }
 }

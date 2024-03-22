@@ -4,6 +4,7 @@ class Solution:
         for x in nums:
             if x in lastValues:
                 return True
-            lastValues.add(x)
+            else:
+                lastValues.add(x)
         
         return False

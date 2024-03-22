@@ -3,52 +3,43 @@ class Solution {
     public int islandPerimeter(int[][] grid) {
         
         final var gridHeight = grid.length;
+        final var gridWidth = grid[0].length;
 
-        var perimeter = 0;
-        var lastRowIndexWithIsland = -1;
+        var count = 0;
+        var endColIndex = gridWidth - 1;
+        var endRowIndex = gridHeight - 1;
 
-        for (int row_index = 0; row_index < gridHeight; row_index++) {
+        var lastRowWithIsland = -1;
+        
+        for (int rowIndex = 0; rowIndex < gridHeight; rowIndex++) {
 
-            final var row = grid[row_index];
-            final var gridWidth = row.length;
-            var bottomEdgesCount = 0;
-            var islandsCountInRow = 0;
+            final var row = grid[rowIndex];
 
-            for (int col_index = 0; col_index < gridWidth; col_index++) {
+            for (int colIndex = 0; colIndex < gridWidth; colIndex++) {
 
-                if (grid[row_index][col_index] == 0) {
+                final var value = row[colIndex];
+
+                if (value == 0) {
                     continue;
                 }
+
+                lastRowWithIsland = rowIndex;
+                count += 4 * value;
+
+                if (rowIndex > 0) {
+                    count -= 2 * grid[rowIndex - 1][colIndex];
+                }
                 
-                islandsCountInRow++;
-
-                final var hasTopEdge = (row_index == 0) || (grid[row_index - 1][col_index] == 0);
-                if (hasTopEdge) {
-                    perimeter += 1;
-                }
-
-                final var hasLeftEdge = (col_index == 0) || (row[col_index - 1] == 0);
-                if (hasLeftEdge) {
-                    perimeter += 1;
-                }
-
-                final var hasRightEdge = (col_index == gridWidth - 1) || (row[col_index + 1] == 0);
-                if (hasRightEdge) {
-                    perimeter += 1;
-                }
-
-                final var hasBottomEdge = (row_index == gridHeight - 1) || (grid[row_index + 1][col_index] == 0);
-                if (hasBottomEdge) {
-                    perimeter += 1;
-                    bottomEdgesCount++;
+                if (colIndex > 0) {
+                    count -= 2 * row[colIndex - 1];
                 }
             }
 
-            if (islandsCountInRow > 0 && islandsCountInRow == bottomEdgesCount) {
-                return perimeter;
+            if (lastRowWithIsland != -1 && lastRowWithIsland < rowIndex - 1) {
+                break;
             }
         }
 
-        return perimeter;
+        return count;
     }
 }

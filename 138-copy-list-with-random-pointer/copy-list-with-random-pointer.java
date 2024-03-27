@@ -20,7 +20,7 @@ class Solution {
         Node prevNode = null;
         Node currentNode = head;
         
-        final var newNodesByOldNodes = new IdentityHashMap<Node, Node>();
+        final var newNodesByOldNodes = new HashMap<Node, Node>();
         
         while (currentNode != null) {
             

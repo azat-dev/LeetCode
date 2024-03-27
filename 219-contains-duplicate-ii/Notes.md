@@ -1,1 +1,1 @@
-<h2>contains-duplicate-ii Notes</h2><hr>Optimize. Use HashMap
+<h2>contains-duplicate-ii Notes</h2><hr>Naive approach

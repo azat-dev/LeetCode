@@ -1,1 +1,1 @@
-<h2>fizz-buzz Notes</h2><hr>Version with streams
+<h2>fizz-buzz Notes</h2><hr>Version with for each

@@ -94,7 +94,6 @@ class Solution {
 
         final var nodesByHash = new HashMap<String, List<TreeNode>>();
         
-        // Walk through the tree from bottom to top
         walkTreeFromBottom(root, (TreeNode node, NodeSummary nodeInfo) -> {
             
             final var hash = nodeInfo.getHash();
@@ -114,7 +113,6 @@ class Solution {
 
         final var duplicates = new HashSet<TreeNode>();
 
-        // Compare nodes in groups
         for (var group : nodesByHash.values()) {
 
             if (group.size() == 1) {
@@ -127,7 +125,7 @@ class Solution {
                 if (node1 == null) {
                     continue;
                 }
-
+                
                 var foundDuplicate = false;
 
                 for (int j = i + 1; j < group.size(); j++) {

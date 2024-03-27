@@ -122,10 +122,6 @@ class Solution {
             for (int i = 0; i < group.size(); i++) {
                 
                 final var node1 = group.get(i);
-                if (node1 == null) {
-                    continue;
-                }
-                
                 var foundDuplicate = false;
 
                 for (int j = i + 1; j < group.size(); j++) {

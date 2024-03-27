@@ -27,11 +27,7 @@ class Solution {
         }
 
         String getHash() {
-            final var sb = new StringBuilder();
-            sb.append(sum);
-            sb.append(numberOfChildrenLeft);
-            sb.append(numberOfChildrenRight);
-            return sb.toString();
+            return "" + sum + numberOfChildrenLeft + numberOfChildrenRight;
         }
     }
 
@@ -134,9 +130,17 @@ class Solution {
                     }
                 }
 
-                if (foundDuplicate && node1 != null) {
-                    duplicates.add(node1);
+                if (!foundDuplicate) {
+                    group.set(i, null);
                 }
+            }
+
+            for (var node : group) {
+                if (node == null) {
+                    continue;
+                }
+
+                duplicates.add(node);
             }
         }
 

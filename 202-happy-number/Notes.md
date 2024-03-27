@@ -1,0 +1,1 @@
+<h2>happy-number Notes</h2><hr>Solution with HashSet

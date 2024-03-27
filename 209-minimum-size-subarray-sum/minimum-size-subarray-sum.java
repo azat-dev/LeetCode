@@ -5,18 +5,16 @@ class Solution {
 // [1, 1, 2, 1,  10]
     public int minSubArrayLen(int target, int[] arr) {
         
-        final var n = arr.length;
-        var minLength = n + 1;
+        var minLength = arr.length + 1;
         var sum = 0;
         
-        for (int i = 0, j = -1; j < n;) {
+        for (int i = 0, j = -1; j < arr.length;) {
             
             final var length = j - i + 1;
             
-            if (length > 0 && length >= minLength) {
+            if (length >= minLength) {
                 sum -= arr[i];
                 i++;
-                continue;
             }
             
             if (sum < target) {
@@ -30,17 +28,13 @@ class Solution {
                 continue;
             }
             
-            if (length >= minLength) {
-                continue;
-            }
-            
-            minLength = length;
+            minLength = Math.min(length, minLength);
             
             if (minLength == 1) {
-                break;    
+                return minLength;
             }
         }
         
-        return minLength == n + 1 ? 0 : minLength;
+        return minLength == arr.length + 1 ? 0 : minLength;
     }
 }

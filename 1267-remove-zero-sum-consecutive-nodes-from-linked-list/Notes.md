@@ -1,0 +1,1 @@
+<h2>remove-zero-sum-consecutive-nodes-from-linked-list Notes</h2><hr>Naive approach

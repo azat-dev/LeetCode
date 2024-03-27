@@ -1,12 +1,22 @@
 class Solution {
     public int singleNumber(int[] nums) {
         
-        var result = 0;
+        final var existingNums = new HashSet<Integer>();
         
         for (var num : nums) {
-            result ^= num;
+            
+            if (existingNums.contains(num)) {
+                existingNums.remove(num);
+                continue;
+            }
+            
+            existingNums.add(num);
         }
         
-        return result;
+        for (var x : existingNums) {
+            return x;
+        }
+        
+        return -1;
     }
 }

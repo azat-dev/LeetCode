@@ -13,7 +13,7 @@ class Solution {
     public Node flatten(Node head) {
         
         var currentNode = head;
-        Node currentListHead = null;
+        final var headsStack = new LinkedList<Node>();
         
         while (currentNode != null) {
             
@@ -22,15 +22,11 @@ class Solution {
                 final var parentNode = currentNode;
                 // Go to the child list
                 currentNode = currentNode.child;
+                parentNode.child = null;
                 
                 // Save the parent node
                 currentNode.prev = parentNode;
-                
-                // headsStack.push(currentNode);
-
-                // Hack in order to reduce the memory consumption
-                parentNode.child = currentListHead;
-                currentListHead = currentNode;
+                headsStack.push(currentNode);
                 continue;
             }
             
@@ -41,13 +37,13 @@ class Solution {
             }
             
             // We are at the end of the current list
-            if (currentListHead == null) {
+            if (headsStack.isEmpty()) {
                 // We are in the top level list
                 break;
             }
             
             // We reached the end one of child lists
-            // final var currentListHead = headsStack.pop();
+            final var currentListHead = headsStack.pop();
             final var parentNode = currentListHead.prev;
             final var parentNodeNext = parentNode.next;
             
@@ -64,12 +60,6 @@ class Solution {
             if (parentNodeNext != null) {
                 currentNode = parentNodeNext;   
             }
-
-            // Set previous list head as current
-            final var prevCurrentListHead = parentNode.child;
-            parentNode.child = null;
-
-            currentListHead = prevCurrentListHead;
         }
         
         return head;

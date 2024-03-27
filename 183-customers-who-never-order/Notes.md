@@ -1,1 +1,1 @@
-<h2>customers-who-never-order Notes</h2><hr>With left join
+<h2>customers-who-never-order Notes</h2><hr>With subquery

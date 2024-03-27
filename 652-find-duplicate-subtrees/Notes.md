@@ -1,1 +1,1 @@
-<h2>find-duplicate-subtrees Notes</h2><hr>Optimization3
+<h2>find-duplicate-subtrees Notes</h2><hr>Optimization1

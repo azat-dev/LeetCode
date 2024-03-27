@@ -1,10 +1,8 @@
-// Doubly Linked List Version
 class MyLinkedList {
     
     private class Node {
         int val;
         Node next;
-        Node prev;
     }
     
     private Node head;
@@ -25,21 +23,7 @@ class MyLinkedList {
         }
         
         Node currentNode = head;
-
-        if (this.size - index < index) {
-
-            currentNode = tail;
-
-            for (
-                int i = size - 1; 
-                currentNode != null && i != index; 
-                i--, currentNode = currentNode.prev
-            ) {}
-
-            return currentNode;
-        }
         
-
         for (
             int i = 0; 
             currentNode != null && i < index; 
@@ -60,11 +44,7 @@ class MyLinkedList {
         final var newNode = new Node();
         newNode.val = val;
         newNode.next = this.head;
-
-        if (this.head != null) {
-            this.head.prev = newNode;
-        }
-
+        
         this.head = newNode;
         
         if (this.tail == null) {
@@ -83,7 +63,6 @@ class MyLinkedList {
         
         final var newNode = new Node();
         newNode.val = val;
-        newNode.prev = this.tail;
         
         this.tail.next = newNode;
         this.tail = newNode;
@@ -110,19 +89,8 @@ class MyLinkedList {
         newNode.val = val;
         
         final var prevNode = getNodeAt(index - 1);
-        newNode.next = null;
-        newNode.prev = prevNode;
-
-        if (prevNode != null) {
-
-            newNode.next = prevNode.next;
-            prevNode.next = newNode;
-
-            if (newNode.next != null) {
-                newNode.next.prev = newNode;
-            }
-        }
-
+        newNode.next = prevNode.next;
+        prevNode.next = newNode;
         this.size++;
     }
     
@@ -134,12 +102,8 @@ class MyLinkedList {
 
         final var oldHead = this.head;
         this.head = this.head.next;
-        
-        if (oldHead.next != null) {
-            oldHead.next.prev = null;
-        }
-
         oldHead.next = null;
+        
         this.size--;
 
         if (this.size == 0) {
@@ -164,11 +128,11 @@ class MyLinkedList {
             return;
         }
 
-        final var prevNode = this.tail.prev;
+        final var prevNode = this.getNodeAt(this.size - 2);
         if (prevNode == null) {
             return;
         }
-
+        
         prevNode.next = null;
         this.tail = prevNode;
         this.size--;
@@ -199,10 +163,6 @@ class MyLinkedList {
         final var currentNode = prevNode.next;
         if (currentNode == null) {
             return;
-        }
-
-        if (currentNode.next != null) {
-            currentNode.next.prev = prevNode;
         }
         
         prevNode.next = currentNode.next;

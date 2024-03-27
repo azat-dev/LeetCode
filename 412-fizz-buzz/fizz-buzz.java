@@ -1,24 +1,26 @@
-import java.util.stream.IntStream;
+import java.util.ArrayList;
 
 class Solution {
     public List<String> fizzBuzz(int n) {
+        var result = new ArrayList<String>();
 
-        return IntStream.rangeClosed(1, n)
-                .mapToObj((i) -> {
-                    if (i % 3 == 0 && i % 5 == 0) {
-                        return "FizzBuzz";
-                    }
+        for (int i = 1; i <= n; i++) {
 
-                    if (i % 3 == 0) {
-                        return "Fizz";
-                    }
+            String value;
 
-                    if (i % 5 == 0) {
-                        return "Buzz";
-                    }
+            if (i % 3 == 0 && i % 5 == 0) {
+                value = "FizzBuzz";
+            } else if (i % 3 == 0) {
+                value = "Fizz";
+            } else if (i % 5 == 0) {
+                value = "Buzz";
+            } else {
+                value = Integer.toString(i);
+            }
 
-                    return Integer.toString(i);
-                    
-                }).collect(Collectors.toList());
+            result.add(value);
+        }
+
+        return result;
     }
 }

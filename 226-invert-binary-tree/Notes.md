@@ -1,1 +1,1 @@
-<h2>invert-binary-tree Notes</h2><hr>PREorder traversal
+<h2>invert-binary-tree Notes</h2><hr>POSTorder traversal

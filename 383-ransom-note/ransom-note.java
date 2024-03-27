@@ -1,24 +1,34 @@
 import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.function.Function;
+import java.util.HashMap;
 
 class Solution {
 
-    private Map<Character, Long> countCharacters(String text) {
-        return text.chars()
-            .mapToObj(ch -> (char) ch)
-            .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-    }
+    private Map<Character, Integer> countCharacters(String text) {
+        Map<Character, Integer> characterMap = new HashMap<>();
 
+        for (int i = 0; i < text.length(); i++) {
+            final var ch = text.charAt(i);
+
+            characterMap.put(ch, characterMap.getOrDefault(ch, 0) + 1);
+        }
+
+        return characterMap;
+    }
     public boolean canConstruct(String ransomNote, String magazine) {
 
-        Map<Character, Long> magazineCharacters = countCharacters(magazine);
-        Map<Character, Long> ransomNoteCharacters = countCharacters(ransomNote);
+        Map<Character, Integer> magazineCharacters = countCharacters(magazine);
+        Map<Character, Integer> ransomNoteCharacters = countCharacters(ransomNote);
 
-        return ransomNoteCharacters.entrySet().stream()
-            .allMatch(entry -> {
-                final var availableCharacters = magazineCharacters.getOrDefault(entry.getKey(), 0L);
-                return availableCharacters >= entry.getValue();
-            });
+        for (Character ch : ransomNoteCharacters.keySet()) {
+
+            final var availableCharacters = magazineCharacters.getOrDefault(ch, 0);
+            final var neededCharacters = ransomNoteCharacters.getOrDefault(ch, 0);
+
+            if (availableCharacters < neededCharacters) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

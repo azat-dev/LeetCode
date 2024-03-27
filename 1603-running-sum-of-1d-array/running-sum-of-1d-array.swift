@@ -3,7 +3,6 @@ class Solution {
         
         var prevSum = 0
         var results = [Int]()
-        
         results.reserveCapacity(nums.count)
 
         for num in nums {

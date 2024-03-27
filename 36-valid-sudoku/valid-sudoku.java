@@ -1,22 +1,9 @@
 class Solution {
 
-    private class CharInfo {
-
-        Set<Integer> seenAtRow;
-        Set<Integer> seenAtCol;
-        Set<Integer> seenAtBox;
-
-        CharInfo() {
-            this.seenAtRow = new HashSet(9);
-            this.seenAtCol = new HashSet(9);
-            this.seenAtBox = new HashSet();
-        }
-    }
-
     public boolean isValidSudoku(char[][] board) {
-        
+
         final var boxSize = 3;
-        final var seen = new HashMap<Character, CharInfo>(9);
+        final var seen = new HashSet<Integer>(9 * 9);
 
         for (int rowIndex = 0; rowIndex < board.length; rowIndex++) {
 
@@ -28,27 +15,24 @@ class Solution {
                 final var boxRow = rowIndex / boxSize;
                 final var boxIndex = boxRow * boxSize + boxCol;
                 
-                final var value = row[colIndex];
-                if (value == '.') {
-                    continue;
-                }
-                
-                var charInfo = seen.get(value);
-                
-                if (charInfo == null) {
-                    final var newCharInfo = new CharInfo();
-
-                    newCharInfo.seenAtRow.add(rowIndex);
-                    newCharInfo.seenAtCol.add(colIndex);
-                    newCharInfo.seenAtBox.add(boxIndex);
-                    
-                    seen.put(value, newCharInfo);
+                if (row[colIndex] == '.') {
                     continue;
                 }
 
-                if (!charInfo.seenAtRow.add(rowIndex) || 
-                    !charInfo.seenAtCol.add(colIndex) || 
-                    !charInfo.seenAtBox.add(boxIndex)) {
+                final int value = (row[colIndex] - '0');
+
+                final var rowCode = ((rowIndex + 1) * 10) + value;
+                if (!seen.add(rowCode)) {
+                    return false;
+                }
+
+                final var colCode = ((colIndex + 1) * 1000) + value;
+                if (!seen.add(colCode)) {
+                    return false;
+                }
+
+                final var boxCode = ((boxIndex + 1) * 10000) + value;
+                if (!seen.add(boxCode)) {
                     return false;
                 }
             }

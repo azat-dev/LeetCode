@@ -1,14 +1,16 @@
 class Solution {
     public int numIdenticalPairs(int[] nums) {
         
-        final var countByNums = new int[101];
+        final var countByNums = new HashMap<Integer, Integer>();
         var count = 0;
 
-        for (int value : nums) {
+        for (int i = 0; i < nums.length; i++) {
             
-            final var currentCount = countByNums[value];
+            final var value = nums[i];
+            final var currentCount = countByNums.getOrDefault(value, 0);
+
             count += currentCount;
-            countByNums[value] = currentCount + 1;
+            countByNums.put(value, currentCount + 1);
         }
 
         return count;

@@ -1,1 +1,1 @@
-<h2>valid-sudoku Notes</h2><hr>Solution with hashset
+<h2>valid-sudoku Notes</h2><hr>Tried to use replace the set with an array

@@ -1,11 +1,23 @@
-import java.util.Arrays;
-
 class Solution {
     public int maximumWealth(int[][] accounts) {
         
-        return Arrays.stream(accounts)
-            .map(customerAccounts -> Arrays.stream(customerAccounts).sum())
-            .max(Integer::compareTo)
-            .orElse(0);
+        var result = 0;
+
+        // We are going to iterate over all customers
+        for(int[] customerAccounts: accounts) {
+
+            // We need to store amount of current customer
+            var currentCustomerWealth = 0;
+
+            // We are going to iterate over all bank account of current customer
+
+            for (int accountValue : customerAccounts) {
+                currentCustomerWealth += accountValue;
+            }
+
+            result = Math.max(result, currentCustomerWealth);
+        }
+
+        return result;
     }
 }

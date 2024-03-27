@@ -3,29 +3,33 @@ class Solution {
     // Space Complexity: O(26)
     public int firstUniqChar(String s) {
         
-        var minIndex = -1;
+        final var map = new LinkedHashMap<Character, Integer>(26);
         
-        for (char ch = 'a'; ch <= 'z'; ch++) {
+        for (int i = 0; i < s.length(); i++) {
             
-            final var firstIndex = s.indexOf(ch);
-            if (firstIndex == -1) {
+            final var ch = s.charAt(i);
+            final var existingIndex = map.get(ch);
+            
+            if (existingIndex == null) {
+                map.put(ch, i);
+                continue;
+            }
+            
+            if (existingIndex == -1) {
                 continue;
             }
 
-            final var lastIndex = s.lastIndexOf(ch);
-            if (lastIndex != firstIndex ) {
-                continue;
-            }
-
-            if (minIndex == -1 || firstIndex < minIndex) {
-                minIndex = firstIndex;
-            }
-
-            if (minIndex == 0) {
-                return 0;
-            }
+            map.put(ch, -1);
         }
         
-        return minIndex;
+        for (var value: map.values()) {
+            if (value == -1) {
+                continue;
+            }
+            
+            return value;
+        }
+        
+        return -1;
     }
 }

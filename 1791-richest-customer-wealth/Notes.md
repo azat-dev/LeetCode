@@ -1,1 +1,1 @@
-<h2>richest-customer-wealth Notes</h2><hr>Version with Streams
+<h2>richest-customer-wealth Notes</h2><hr>Version with enhanced loops

@@ -7,17 +7,16 @@
 class Solution:
     def walkTree(self, root: Optional[TreeNode], callback: Any):
         if not root:
-            return "#"
+            return None
         
         left_hash = self.walkTree(root.left, callback)
         right_hash = self.walkTree(root.right, callback)
         
-        hash = f"{root.val}(${left_hash})(${right_hash})"
-        # hash = (
-        #     root.val,
-        #     left_hash,
-        #     right_hash
-        # )
+        hash = (
+            root.val,
+            left_hash,
+            right_hash
+        )
         
         callback(root, hash)
         return hash

@@ -1,1 +1,1 @@
-<h2>find-the-pivot-integer Notes</h2><hr>Optimized solution
+<h2>find-the-pivot-integer Notes</h2><hr>[ Time taken: 5 m 23 s ]

@@ -5,10 +5,6 @@ class Solution {
         
         for (int i = digits.length - 1; i >= 0; i--) {
             
-            if (carryOutValue == 0) {
-                break;
-            }
-            
             final var val = digits[i];
             final var sum = (val + carryOutValue);
             

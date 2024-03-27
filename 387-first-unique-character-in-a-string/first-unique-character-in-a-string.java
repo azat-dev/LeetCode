@@ -3,7 +3,7 @@ class Solution {
     // Space Complexity: O(26)
     public int firstUniqChar(String s) {
         
-        final var map = new LinkedHashMap<Character, Integer>(26);
+        final var map = new HashMap<Character, Integer>(26);
         
         for (int i = 0; i < s.length(); i++) {
             
@@ -22,14 +22,18 @@ class Solution {
             map.put(ch, -1);
         }
         
+        var minIndex = -1;
+        
         for (var value: map.values()) {
             if (value == -1) {
                 continue;
             }
             
-            return value;
+            if (minIndex == -1 || value < minIndex) {
+                minIndex = value;
+            }
         }
         
-        return -1;
+        return minIndex;
     }
 }

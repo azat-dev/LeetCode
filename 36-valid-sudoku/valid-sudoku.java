@@ -3,7 +3,7 @@ class Solution {
     public boolean isValidSudoku(char[][] board) {
 
         final var boxSize = 3;
-        final var seen = new HashSet<Integer>(9 * 9);
+        final var seen = new HashSet<Integer>(9 * 9 + 9 * 9 + 9 * 9);
 
         for (int rowIndex = 0; rowIndex < board.length; rowIndex++) {
 

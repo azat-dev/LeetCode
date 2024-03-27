@@ -12,12 +12,14 @@ class Solution:
         board_size = len(board)
         
         for row in range(board_size):
+            box_row = row // 3
+            row_items = board[row]
+            
             for col in range(board_size):
-                box_row = row // 3
                 box_col = col // 3
                 box = box_row * 9 + box_col
                 
-                value = board[row][col]
+                value = row_items[col]
                 
                 if value == '.':
                     continue

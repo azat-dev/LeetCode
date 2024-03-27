@@ -1,7 +1,12 @@
 class Solution {
     public int pivotInteger(int n) {
         
-        final int total = n * (n + 1) / 2;
+        int total = 0;
+
+        for (int i = 1; i <= n; i++) {
+            total += i;
+        }
+
         int sum = 0;
 
         for (int i = 1; i <= n; i++) {

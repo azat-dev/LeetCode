@@ -1,1 +1,1 @@
-<h2>number-of-good-pairs Notes</h2><hr>Optimized solution
+<h2>number-of-good-pairs Notes</h2><hr>[ Time taken: 6 m 53 s ]

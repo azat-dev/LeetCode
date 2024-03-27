@@ -9,23 +9,25 @@ class Solution {
             nums2 = temp;
         }
 
-        final var values2 = new HashSet<Integer>(nums2.length);
+        final var values2 = new HashSet<Integer>();
 
         // O(m)
-        for (int value2 : nums2) {
-            values2.add(value2);
+        for (int i = 0; i < nums2.length; i++) {
+            values2.add(nums2[i]);
         }
 
-        final var intersectedValues = new HashSet<Integer>(nums1.length);
+        final var intersectedValues = new HashSet<Integer>();
 
         // O(n)
-        for (int value1 : nums1) {
+        for (int i = 0; i < nums1.length; i++) {
+
+            final var currentValue = nums1[i];
             
-            if (!values2.contains(value1)) {
+            if (!values2.contains(currentValue)) {
                 continue;
             }
 
-            intersectedValues.add(value1);
+            intersectedValues.add(currentValue);
         }
 
         final var result = new int[intersectedValues.size()];

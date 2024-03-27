@@ -1,1 +1,1 @@
-<h2>intersection-of-two-arrays Notes</h2><hr>Refactor the code
+<h2>intersection-of-two-arrays Notes</h2><hr>Solution with set

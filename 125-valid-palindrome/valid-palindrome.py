@@ -28,6 +28,7 @@ class Solution:
                 if not character_from_back.isalnum():
                     continue
 
+                print(f"Back Character {character_from_back}")
                 if character != character_from_back:
                     return False
 

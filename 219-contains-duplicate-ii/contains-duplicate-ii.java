@@ -1,25 +1,40 @@
 class Solution {
 
-    // Time complexity: O(n)
+    // Time complexity: O(n * x)
     public boolean containsNearbyDuplicate(int[] nums, int k) {
 
-        final var lastIndexesByNums = new HashMap<Integer, Integer>(10000);
+        final var indexesOfNums = new HashMap<Integer, List<Integer>>(10000);
         
         for (int currentIndex = 0; currentIndex < nums.length; currentIndex++) {
             
             final var currentValue = nums[currentIndex];
-            final var lastIndexOfCurrentValue = lastIndexesByNums.get(currentValue);
+            final var indexesForCurrentValue = indexesOfNums.get(currentValue);
 
-            if (lastIndexOfCurrentValue == null) {
-                lastIndexesByNums.put(currentValue, currentIndex);
+            if (indexesForCurrentValue == null) {
+
+                final var newList = new LinkedList<Integer>();
+                newList.add(currentIndex);
+
+                indexesOfNums.put(currentValue, newList);
                 continue;
-            }
+            } 
 
-            if (currentIndex - lastIndexOfCurrentValue <= k) {
+            final var iterator = indexesForCurrentValue.iterator();
+            
+            while (iterator.hasNext()) {
+
+                final var prevIndex = iterator.next();
+
+                if (currentIndex - prevIndex > k) {
+                    iterator.remove();
+                    continue;
+                }
+
                 return true;
             }
 
-            lastIndexesByNums.put(currentValue, currentIndex);
+            indexesForCurrentValue.add(currentIndex);
+            indexesOfNums.put(currentValue, indexesForCurrentValue);
         }
         
         return false;

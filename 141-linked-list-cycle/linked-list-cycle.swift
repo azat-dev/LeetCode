@@ -15,7 +15,7 @@ class Solution {
     func hasCycle(_ head: ListNode?) -> Bool {
         
         var slow: ListNode? = head
-        var fast: ListNode? = head?.next
+        var fast: ListNode? = head?.next?.next
 
         while fast != nil {
 

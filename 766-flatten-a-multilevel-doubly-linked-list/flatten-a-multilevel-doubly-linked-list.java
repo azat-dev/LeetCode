@@ -9,7 +9,16 @@ class Node {
 */
 
 class Solution {
-
+    
+    private Node getLastNode(Node head) {
+        
+        while (head != null && head.next != null) {
+            head = head.next;
+        }
+        
+        return head;
+    }
+    
     public Node flatten(Node head) {
         
         var currentNode = head;
@@ -49,7 +58,6 @@ class Solution {
             
             // Connect the next node from parent to the end of current list
             currentNode.next = parentNodeNext;
-            
             if (parentNodeNext != null) {
                 parentNodeNext.prev = currentNode;
             }

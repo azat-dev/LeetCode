@@ -5,7 +5,7 @@ class Solution {
 
         for (int i = 0; i < s.length(); i++) {
 
-            final var ch = s.charAt(i);
+            Character ch = s.charAt(i);
             var sb = items.get(ch);
 
             if (sb == null) {
@@ -16,11 +16,11 @@ class Solution {
             items.put(ch, sb);
         }
 
-        final var sb = new StringBuilder(items.size());
+        final var sb = new StringBuilder(s.length());
 
         for (int i = 0; i < order.length(); i++) {
 
-            final var ch = order.charAt(i);
+            Character ch = order.charAt(i);
             final var item = items.get(ch);
 
             if (item == null) {

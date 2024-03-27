@@ -1,1 +1,1 @@
-<h2>intersection-of-two-arrays Notes</h2><hr>Solution with set
+<h2>intersection-of-two-arrays Notes</h2><hr>Naive approach

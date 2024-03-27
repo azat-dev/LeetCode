@@ -1,24 +1,25 @@
 class Solution {
 
-    // 0, 1, 2 , 3 , 4
     // Time complexity: O(n)
     public boolean containsNearbyDuplicate(int[] nums, int k) {
 
-        final var seen = new HashSet<Integer>(1000);
+        final var lastIndexesByNums = new HashMap<Integer, Integer>(10000);
         
         for (int currentIndex = 0; currentIndex < nums.length; currentIndex++) {
             
             final var currentValue = nums[currentIndex];
-            final var seenBefore = !seen.add(currentValue);
+            final var lastIndexOfCurrentValue = lastIndexesByNums.get(currentValue);
 
-            if (seenBefore) {
+            if (lastIndexOfCurrentValue == null) {
+                lastIndexesByNums.put(currentValue, currentIndex);
+                continue;
+            }
+
+            if (currentIndex - lastIndexOfCurrentValue <= k) {
                 return true;
             }
 
-            if (currentIndex >= k) {
-                // Remove old values
-                seen.remove(nums[currentIndex - k]);
-            }
+            lastIndexesByNums.put(currentValue, currentIndex);
         }
         
         return false;

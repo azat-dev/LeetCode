@@ -21,22 +21,26 @@ class Solution:
         callback(root, hash)
         return hash
             
+        
+        
+        
     def findDuplicateSubtrees(self, root: Optional[TreeNode]) -> List[Optional[TreeNode]]:
         duplicates = list()
-        groups = dict()
+        existing_hashes = set()
+        hashes_in_duplicates = set()
         
         def addNodeToDict(node, hash):
-
-            group = groups.setdefault(hash, set())
-
-            if not group:
-                group.add(node)
+            
+            
+            if hash not in existing_hashes:
+                existing_hashes.add(hash)
                 return
-
-            if len(group) == 1:
-                group.add(node)
-                duplicates.append(node)
+                
+            if hash in hashes_in_duplicates:
                 return
+            
+            hashes_in_duplicates.add(hash)
+            duplicates.append(node)
             
             
         self.walkTree(root, addNodeToDict)

@@ -10,13 +10,6 @@ class Solution {
         
         for (int i = 0, j = -1; j < arr.length;) {
             
-            final var length = j - i + 1;
-            
-            if (length >= minLength) {
-                sum -= arr[i];
-                i++;
-            }
-            
             if (sum < target) {
                 
                 j++;
@@ -24,15 +17,19 @@ class Solution {
                     break;
                 }
                 
-                sum += arr[j];                
+                sum += arr[j];
                 continue;
             }
             
+            final var length = j - i + 1;
             minLength = Math.min(length, minLength);
             
             if (minLength == 1) {
                 return minLength;
             }
+            
+            sum -= arr[i];
+            i++;
         }
         
         return minLength == arr.length + 1 ? 0 : minLength;

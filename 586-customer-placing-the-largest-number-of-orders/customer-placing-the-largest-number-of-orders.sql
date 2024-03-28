@@ -1,6 +1,9 @@
-SELECT 
+WITH CustomersWithOrderCounts AS (
+    SELECT customer_number, COUNT(*) as count
+    FROM Orders 
+    GROUP BY customer_number
+)
+SELECT
     customer_number
-FROM Orders
-GROUP BY customer_number
-ORDER BY COUNT(*) DESC
-LIMIT 1
+FROM CustomersWithOrderCounts
+WHERE count = (SELECT MAX(count) FROM CustomersWithOrderCounts)

@@ -1,0 +1,1 @@
+<h2>department-highest-salary Notes</h2><hr>Solution with Common Table Expression and Joins

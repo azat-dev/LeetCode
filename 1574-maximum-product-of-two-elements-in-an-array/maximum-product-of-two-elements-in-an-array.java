@@ -1,8 +1,5 @@
 class Solution {
 
-    private record Value(int value, int index) {
-
-    }
     public int maxProduct(int[] nums) {
         
         final var minHeap = new PriorityQueue<Integer>(2);

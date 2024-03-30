@@ -2,20 +2,22 @@ class Solution {
 
     public int maxProduct(int[] nums) {
         
-        final var minHeap = new PriorityQueue<Integer>(2);
-        var size = 0;
+        var a = -1;
+        var b = -1;
 
         for (final var value : nums) {
 
-            minHeap.add(value);
-            size++;
-
-            if (size > 2) {
-                minHeap.poll();
-                size--;
+            if (value < a && value < b) {
+                continue;
             }
+
+            if (b > a) {
+                a = b;
+            }
+
+            b = value;
         }
 
-        return (minHeap.poll() - 1) * (minHeap.peek() - 1);
+        return (a - 1) * (b - 1);
     }
 }

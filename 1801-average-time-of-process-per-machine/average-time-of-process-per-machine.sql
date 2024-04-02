@@ -2,7 +2,7 @@
 SELECT 
     a_start.machine_id, 
     ROUND(
-        SUM(a_end.timestamp - a_start.timestamp) / COUNT(DISTINCT a_start.process_id),
+        AVG(a_end.timestamp - a_start.timestamp),
         3
     ) as processing_time
 FROM Activity a_start

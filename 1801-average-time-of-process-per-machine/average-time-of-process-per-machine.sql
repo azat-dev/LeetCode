@@ -1,14 +1,14 @@
 # Write your MySQL query statement below
 SELECT 
-    a_start.machine_id, 
+    machine_id, 
     ROUND(
-        AVG(a_end.timestamp - a_start.timestamp),
+        AVG(
+            CASE 
+                WHEN a.activity_type = 'end' THEN a.timestamp
+                ELSE -a.timestamp
+            END
+        ) * 2,
         3
     ) as processing_time
-FROM Activity a_start
-JOIN Activity a_end 
-    ON a_start.machine_id = a_end.machine_id AND 
-        a_start.process_id = a_end.process_id AND 
-        a_start.activity_type = 'start' AND 
-        a_end.activity_type = 'end'
+FROM Activity a
 GROUP BY machine_id

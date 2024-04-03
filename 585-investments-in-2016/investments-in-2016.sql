@@ -12,4 +12,4 @@ WHERE tiv_2015 IN (
     FROM Insurance
     GROUP BY lat, lon
     HAVING COUNT(*) = 1
-) 
+)

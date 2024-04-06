@@ -22,12 +22,10 @@ class Solution {
         }
 
         if (root == null || subRoot == null) {
-            System.out.println("False2");
             return false;
         }
 
         if (root.val != subRoot.val) {
-            System.out.println("False1");
             return false;
         }
 

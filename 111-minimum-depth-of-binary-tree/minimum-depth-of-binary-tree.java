@@ -16,29 +16,21 @@
 class Solution {
 
     public int minDepth(TreeNode root) {
+        return minDepth(root, 0);
+    }
 
+    private int minDepth(TreeNode root, int count) {
         if (root == null) {
-            return 0;
+            return count;
         }
 
         if (root.left == null && root.right == null) {
-            return 1;
+            return count + 1;
         }
 
-        var depth = -1;
-
-        if (root.left != null) {
-            depth = minDepth(root.left);
-        }
-
-        if (root.right != null) {
-            final var rightDepth = minDepth(root.right);
-
-            if (depth == -1 || depth > rightDepth) {
-                depth = rightDepth;
-            }
-        }
-
-        return depth + 1;
+        return Math.min(
+            root.left == null ? Integer.MAX_VALUE : minDepth(root.left, count + 1),
+            root.right == null ? Integer.MAX_VALUE : minDepth(root.right, count + 1)
+        );
     }
 }

@@ -10,62 +10,83 @@
  */
 class Solution {
 
-    public ListNode mergeKLists(ListNode[] lists) {
+    private static class ListsIterator {
+        private final ListNode[] lists;
+        private final PriorityQueue<Item> queue;
 
-        if (lists.length == 0) {
-            return null;
+        ListsIterator(ListNode[] lists) {
+            this.lists = lists;
+            this.queue = new PriorityQueue(
+                IntStream.range(0, lists.length)
+                    .mapToObj(listIndex -> {
+                        final var node = lists[listIndex];
+                        if (node == null) {
+                            return null;
+                        }
+
+                        return new Item(
+                            listIndex,
+                            node.val
+                        );
+                    })
+                    .filter(Objects::nonNull)
+                    .toList()
+            );
         }
 
-        for (int i = lists.length - 1; i >= 1; i--) {
-            final var l1 = lists[i];
-            final var l2 = lists[i - 1];
-            lists[i - 1] = merge(l1, l2);
+        ListNode next() {
+
+            final var nextItem = queue.poll();
+            if (nextItem == null) {
+                return null;
+            }
+
+            final var listIndex = nextItem.listIndex();
+            final var nextNode = lists[listIndex];
+            lists[listIndex] = nextNode.next;
+            
+            final var newNode = lists[listIndex];
+            if (newNode == null) {
+                return nextNode;
+            }
+
+            this.queue.offer(
+                new Item(
+                    listIndex,
+                    newNode.val
+                )
+            );
+
+            return nextNode;
         }
 
-        return lists[0];
+        static record Item(
+            int listIndex,
+            int val
+        ) implements Comparable<Item> {
+
+            @Override
+            public int compareTo(Item other) {
+                return this.val - other.val;
+            }
+        }
     }
 
-    private ListNode merge(ListNode l1, ListNode l2) {
-        if (l2 == null) {
-            return l1;
-        }
+    public ListNode mergeKLists(ListNode[] lists) {
 
-        if (l1 == null) {
-            return l2;
-        }
+        final var iterator = new ListsIterator(lists);
 
-        ListNode root = null;
-        ListNode currentNode = null;
+        final var root = iterator.next();
+        var currentNode = root;
 
-        while (l1 != null && l2 != null) {
-
-            ListNode nextNode = null;
-            
-            if (l2.val < l1.val) {
-
-                nextNode = l2;
-                l2 = l2.next;
-
-            } else {
-                nextNode = l1;
-                l1 = l1.next;
+        while (true) {
+            final var nextNode = iterator.next();
+            if (nextNode == null) {
+                break;
             }
 
-            if (currentNode == null) {
-                root = nextNode;
-                currentNode = nextNode;
-            } else {
-                currentNode.next = nextNode;
-                currentNode = nextNode;
-            }
-        }
-
-        if (l2 != null) {
-            currentNode.next = l2;
-        }
-
-        if (l1 != null) {
-            currentNode.next = l1;
+            currentNode.next = nextNode;
+            currentNode = nextNode;
         }
 
         return root;

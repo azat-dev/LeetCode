@@ -10,83 +10,76 @@
  */
 class Solution {
 
-    private static class ListsIterator {
-        private final ListNode[] lists;
-        private final PriorityQueue<Item> queue;
-
-        ListsIterator(ListNode[] lists) {
-            this.lists = lists;
-            this.queue = new PriorityQueue(
-                IntStream.range(0, lists.length)
-                    .mapToObj(listIndex -> {
-                        final var node = lists[listIndex];
-                        if (node == null) {
-                            return null;
-                        }
-
-                        return new Item(
-                            listIndex,
-                            node.val
-                        );
-                    })
-                    .filter(Objects::nonNull)
-                    .toList()
-            );
+    private ListNode merge(ListNode[] lists, int start, int end) {
+        if (start == end) {
+            return lists[start];
         }
 
-        ListNode next() {
-
-            final var nextItem = queue.poll();
-            if (nextItem == null) {
-                return null;
-            }
-
-            final var listIndex = nextItem.listIndex();
-            final var nextNode = lists[listIndex];
-            lists[listIndex] = nextNode.next;
-            
-            final var newNode = lists[listIndex];
-            if (newNode == null) {
-                return nextNode;
-            }
-
-            this.queue.offer(
-                new Item(
-                    listIndex,
-                    newNode.val
-                )
-            );
-
-            return nextNode;
+        if (start + 1 == end) {
+            return merge(lists[start], lists[end]);
         }
 
-        static record Item(
-            int listIndex,
-            int val
-        ) implements Comparable<Item> {
+        final var mid = (start + end) / 2;
+        final var a = merge(lists, start, mid);
+        final var b = merge(lists, mid + 1, end);
 
-            @Override
-            public int compareTo(Item other) {
-                return this.val - other.val;
-            }
-        }
+        return merge(a, b);
     }
 
     public ListNode mergeKLists(ListNode[] lists) {
 
-        final var iterator = new ListsIterator(lists);
+        if (lists.length == 0) {
+            return null;
+        }
 
-        final var root = iterator.next();
-        var currentNode = root;
+        if (lists.length == 1) {
+            return lists[0];
+        }
 
-        while (true) {
-            final var nextNode = iterator.next();
-            if (nextNode == null) {
-                break;
+        return merge(lists, 0, lists.length - 1);
+    }
+
+    private ListNode merge(ListNode l1, ListNode l2) {
+        if (l2 == null) {
+            return l1;
+        }
+
+        if (l1 == null) {
+            return l2;
+        }
+
+        ListNode root = null;
+        ListNode currentNode = null;
+
+        while (l1 != null && l2 != null) {
+
+            ListNode nextNode = null;
+            
+            if (l2.val < l1.val) {
+
+                nextNode = l2;
+                l2 = l2.next;
+
+            } else {
+                nextNode = l1;
+                l1 = l1.next;
             }
 
-            currentNode.next = nextNode;
-            currentNode = nextNode;
+            if (currentNode == null) {
+                root = nextNode;
+                currentNode = nextNode;
+            } else {
+                currentNode.next = nextNode;
+                currentNode = nextNode;
+            }
+        }
+
+        if (l2 != null) {
+            currentNode.next = l2;
+        }
+
+        if (l1 != null) {
+            currentNode.next = l1;
         }
 
         return root;
